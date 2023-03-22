@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
     MapsFragment mapsFragment = new MapsFragment();
     weatherFragment weatherFragment = new weatherFragment();
-    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,mapsFragment).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,weatherFragment).commit();
-
-        searchView = findViewById(R.id.sv_location);
-
 
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -63,30 +58,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                String location = searchView.getQuery().toString();
-                List<Address> addressList = null;
-
-                if (location != null || !location.equals("")) {
-                    Geocoder geocoder = new Geocoder(MainActivity.this);
-                    try {
-                        addressList = geocoder.getFromLocationName(location, 1);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Address address = addressList.get(0);
-                    mapsFragment.onMapReady
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
 
 
 
