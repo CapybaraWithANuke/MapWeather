@@ -30,6 +30,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     SearchView searchView;
 
     GoogleMap map;
+    public static LatLng latLng;
 
 
     @Nullable
@@ -65,7 +66,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                         Address address = addressList.get(0);
                         // ...
 
-                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
                         if (map != null) {
                             map.addMarker(new MarkerOptions().position(latLng).title(location));

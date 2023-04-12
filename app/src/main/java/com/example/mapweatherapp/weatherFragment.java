@@ -1,6 +1,8 @@
 package com.example.mapweatherapp;
 
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,14 +27,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.List;
+import java.util.Locale;
 
 
 public class weatherFragment extends Fragment {
 
     TextView weatherInfo;
 
-    private final String url = "https://api.openweathermap.org/data/2.5/weather";
+    private final String url = "https://api.openweathermap.org/data/2.5/weather?";
     private final String appid = "73c3c26e7f843a531c633d467ded3b55";
     DecimalFormat df = new DecimalFormat("#.##");
 
@@ -57,7 +62,9 @@ public class weatherFragment extends Fragment {
         if(city.equals("")){
             weatherInfo.setText("City field can not be empty!");
         }else{
-            tempUrl = url + "?q=" + city + "&appid=" + appid;
+
+            tempUrl = url + "lat=" + MapsFragment.latLng.latitude + "&lon=" + MapsFragment.latLng.longitude + "&appid=" + appid;
+
             StringRequest stringRequest = new StringRequest(Request.Method.POST, tempUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
